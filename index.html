@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HGAL Academy - Organization of Primary Health Care</title>
+    
+    <!-- Google Fonts: Merriweather for the main text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- RESET & BASIC SETUP --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(180deg, #1a1a1a 0%, #252525 100%);
+            color: #e0e0e0;
+            font-family: 'Merriweather', serif;
+            font-size: 26px; /* Requested size */
+            line-height: 1.8;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- SCROLL PROGRESS BAR --- */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            width: 0%;
+            transition: width 0.1s ease-out;
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+        }
+
+        /* --- LAYOUT CONTAINER --- */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px 20px 100px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px; /* Space between "bubbles" of text */
+        }
+
+        /* --- LOGO STYLING --- */
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-top: 40px;
+            animation: fadeInDown 1.5s ease-out;
+        }
+
+        .academy-logo {
+            width: 100%;
+            max-width: 500px; /* Large but fits screen */
+            height: auto;
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.1));
+        }
+
+        /* --- TEXT STYLING & ANIMATION --- */
+        p {
+            opacity: 0; /* Hidden initially for animation */
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            margin-bottom: 10px;
+        }
+
+        /* Class added by JS when element is in view */
+        p.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Empasis Styles */
+        .highlight {
+            color: #ffca28; /* Gold for importance */
+            font-weight: 700;
+        }
+
+        .term {
+            color: #64b5f6; /* Light blue for technical terms */
+            font-weight: 700;
+            border-bottom: 2px solid rgba(100, 181, 246, 0.3);
+        }
+
+        .sub-heading {
+            color: #00e676; /* Green for section shifts */
+            font-weight: 900;
+            display: block;
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+
+        /* --- VIP BUTTON & ENDING --- */
+        .vip-section {
+            margin-top: 40px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .vip-text {
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #FF512F 0%, #DD2476 100%);
+            color: white;
+            text-decoration: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1em;
+            box-shadow: 0 4px 15px rgba(221, 36, 118, 0.4);
+            transition: transform 0.2s;
+            animation: pulse 2s infinite;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(221, 36, 118, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(221, 36, 118, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(221, 36, 118, 0); }
+        }
+
+        /* --- MOBILE RESPONSIVENESS --- */
+        @media (max-width: 600px) {
+            body {
+                font-size: 20px; /* Slightly smaller for mobile readability */
+            }
+            .container {
+                padding: 15px;
+            }
+            .logo-container {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Scroll Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <!-- Logo Header -->
+        <div class="logo-container">
+            <img src="https://i.imgur.com/eP0BFrd.png" alt="HGAL Academy Logo" class="academy-logo">
+        </div>
+
+        <!-- CONTENT START -->
+
+        <p>👋 Welcome to this lecture! Right now, we shall dive into and explore the <span class="highlight">Organization of Primary Health Care</span>.</p>
+
+        <p>Imagine building a giant LEGO castle. 🏰 You can’t just dump all the blocks on the floor and hope it works, right? You need a plan! Someone needs to design it, someone needs to sort the bricks, and someone needs to actually click them together.</p>
+
+        <p>The health care system in our country works exactly the same way. It is organized into three main levels of government to make sure everyone stays healthy. Let's break down who does what! 🧐</p>
+
+        <p><span class="sub-heading">1. The Federal Government 🇳🇬</span></p>
+
+        <p>Think of the Federal Ministry of Health as the <strong>"Big Boss"</strong> or the Headmaster of a school. They are at the very top.</p>
+
+        <p>Their job isn't usually to give you an injection personally. Instead, they play the big strategic roles:</p>
+
+        <p>📜 <strong>Making the Rules:</strong> They formulate the national policies. This means they write the "rulebook" on how Primary Health Care (PHC) should be run across the whole country.</p>
+
+        <p>💰 <strong>The Money Bags:</strong> They provide financial support to the State and Local governments. Without this money, the lower levels can't implement the PHC programmes.</p>
+
+        <p>🧭 <strong>Giving Direction:</strong> They provide the guidelines. It’s like giving a map to the State and Local governments so they know exactly how to follow the policies.</p>
+
+        <p>👨‍🏫 <strong>Setting Standards:</strong> They supervise and set the standards for training health workers. They make sure that the people treating you actually know what they are doing!</p>
+
+        <p>🔬 <strong>Research:</strong> They promote research activities to find new ways to cure sicknesses.</p>
+
+        <p>🤝 <strong>Making Friends Abroad:</strong> They collaborate with big international agencies like the <span class="term">WHO</span> (World Health Organization) and <span class="term">UNICEF</span>. This helps us get help from around the world.</p>
+
+        <p>📊 <strong>Checking Homework:</strong> They monitor and evaluate how well the States and Local Governments are doing their jobs.</p>
+
+        <p>💉 <strong>Supplying the Goods:</strong> Finally, they provide the vaccines for the States and Local Governments (this is part of the NPI).</p>
+
+        <p>Okay, let’s now move on to the next level down...</p>
+
+        <p><span class="sub-heading">2. The State Government 🏛️</span></p>
+
+        <p>If the Federal Government is the Headmaster, the State Government is like the <strong>Class Teacher</strong>. They take the orders from the top and make sure they work for their specific state.</p>
+
+        <p>Here is what they do:</p>
+
+        <p>📝 <strong>State Rules:</strong> They formulate state policies, but they must follow the guidelines given by the Federal Government.</p>
+
+        <p>🏫 <strong>Training Schools:</strong> They provide the facilities to train workers. For example, they establish <span class="highlight">Schools of Health Technology</span> where health workers learn their skills.</p>
+
+        <p>❄️ <strong>Keeping Vaccines Safe:</strong> They are responsible for the storage and distribution of vaccines to the Local Government areas. They make sure the vaccines don't spoil!</p>
+
+        <p>📋 <strong>Guiding the Locals:</strong> They provide guidelines to the Local Government on how to implement the programmes.</p>
+
+        <p>🦠 <strong>Local Research:</strong> They promote research, especially regarding <strong>endemic diseases</strong> (sicknesses that are common in that specific area).</p>
+
+        <p>🤝 <strong>Partnerships:</strong> Just like the Federal level, they also collaborate with non-governmental and international health agencies.</p>
+
+        <p>Let’s now dive into the level that is closest to you and me...</p>
+
+        <p><span class="sub-heading">3. The Local Government 🏘️</span></p>
+
+        <p>This is the <strong>"Action Team."</strong> According to the present arrangement, the Local Government is responsible for the actual work right in your neighborhood.</p>
+
+        <p>🏥 <strong>Community Care:</strong> They provide PHC services at the community level. If you go to a health center near your house, that is likely run by them.</p>
+
+        <p>🧹 <strong>Cleanliness:</strong> Each Local Government must organize PHC services within its domain, and this includes <strong>environmental sanitation</strong> (keeping the streets and drains clean).</p>
+
+        <p>Let's look at who is in charge here:</p>
+
+        <p>👑 The <strong>Political Head</strong> of the PHC unit is called the <span class="term">Supervisory Councilor for Health</span>.</p>
+
+        <p>🩺 The <strong>Team Leader</strong> is the <span class="term">Medical Officer of Health</span> or the <span class="term">Community Health Officer</span>.</p>
+
+        <p>The function of this team is to carry out the day-to-day organization of programmes. These are things like:</p>
+        <p>✅ Safe Motherhood (taking care of pregnant women)<br>
+        ✅ Family Planning<br>
+        ✅ Immunization (giving shots)<br>
+        ✅ Refuse Disposal (handling trash)</p>
+
+        <p>Now that we understand the government levels, let’s talk about the <strong>Types of Services</strong> you receive.</p>
+
+        <p><span class="sub-heading">Services Rendered at PHC 🛠️</span></p>
+
+        <p>There are two distinct types of services rendered in any Primary Health Care programme. Think of it like a movie set—you have the actors on screen and the crew behind the cameras.</p>
+
+        <p><strong>1. Professional/Technical Services 🩺</strong></p>
+        <p>These are the "actors." They include doctors, midwives, nurses, and community health extension workers. They are the ones who actually touch the patients and provide health services.</p>
+
+        <p><strong>2. Supportive/Administrative Services 📂</strong></p>
+        <p>These are the "crew." They support the technical team. This includes accountants, secretaries, and clerical officers. Without them, the hospital would be unorganized!</p>
+
+        <p>At this level, the workforce is a mix of different people:</p>
+        <p>🔹 <strong>In the Villages:</strong> You have Village Volunteer Health Workers and Traditional Birth Attendants (TBA). They work in the wards and neighborhoods.</p>
+        <p>🔹 <strong>At the Facilities:</strong> You have Community Health Extension Workers (CHEW) and Community Health Officers (CHO).</p>
+        <p>🔹 <strong>The Experts:</strong> Nurses, midwives, and medical officers use their expertise to handle different levels of care.</p>
+
+        <p>Next, we’ll look at teamwork...</p>
+
+        <p><span class="sub-heading">The Role of Community Health Workers & Nurses 🤝</span></p>
+
+        <p>At the Local Government level, no one works alone! The doctors, nurses, sanitary inspectors, and village workers all work as a <strong>TEAM</strong>. 🤜🤛</p>
+
+        <p>Here is what they do together to make sure everything runs smoothly:</p>
+
+        <p>📊 <strong>Resource Management:</strong> They manage resources to get the maximum results. (Using what they have wisely!).</p>
+
+        <p>📅 <strong>Planning:</strong> They plan and implement health programmes.</p>
+
+        <p>📢 <strong>Teaching:</strong> They provide <strong>Health Education</strong> to the public.</p>
+
+        <p>📝 <strong>Record Keeping:</strong> They collect data and keep records to monitor and evaluate if the programmes are working.</p>
+
+        <p>🔗 <strong>Collaboration:</strong> They "liaise" (connect) with other agencies whose functions are health-related. This is called <span class="term">intersectoral collaboration</span>.</p>
+
+        <p>👶 <strong>Training TBAs:</strong> They train Traditional Birth Attendants. This is very important to reduce the risks of complications when babies are born.</p>
+
+        <p>🔍 <strong>Evaluation:</strong> They check to see if the programmes are successful.</p>
+
+        <p>🚑 <strong>Referral Services:</strong> If a case is too serious for the local center, they refer the patient to a bigger hospital.</p>
+
+        <p>And that wraps up our exploration of how Primary Health Care is organized! 🌟</p>
+
+        <!-- VIP SECTION CONTINUOUS -->
+        <div class="vip-section">
+            <p class="vip-text highlight">🚀 Join our VIP if you're yet to, for more study materials and other bonuses (worth #115,000).</p>
+            <p>For more details click below 👇</p>
+            <br>
+            <a href="https://tinyurl.com/2dbtvx2b" class="cta-button">Click Here</a>
+        </div>
+
+    </div>
+
+    <script>
+        // --- SCROLL PROGRESS BAR LOGIC ---
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        };
+
+        // --- TEXT REVEAL ANIMATION LOGIC ---
+        // This observer checks if an element is on screen.
+        // If it is, it adds the "visible" class which triggers the CSS animation.
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1 // Trigger when 10% of the item is visible
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Optional: Stop observing once it has appeared
+                    // observer.unobserve(entry.target); 
+                }
+            });
+        }, observerOptions);
+
+        // Target all paragraphs and the VIP section
+        const elementsToAnimate = document.querySelectorAll('p, .vip-section, .sub-heading');
+        elementsToAnimate.forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+                                                                                                                                                                                                                    </html>
